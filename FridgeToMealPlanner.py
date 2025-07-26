@@ -1,5 +1,5 @@
 import csv
-import networkx as nx
+import networkx as nx # type: ignore
 import matplotlib.pyplot as plt
 from itertools import combinations
 from pathlib import Path
