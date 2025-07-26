@@ -69,6 +69,19 @@ for i, j in combinations(ingredients, 2):
     weight = round(urg_i + urg_j + sim, 2)
     G.add_edge(i, j, weight=weight, sim=round(sim,2), known=False)
 
+# Add the top wieghted ingredients to a dictionary
+
+edge_weights = [ (tuple(sorted((u, v))), d["weight"])
+                 for u, v, d in G.edges(data=True) ]
+
+# grab the three largest by weight
+top3_pairs = sorted(edge_weights, key=lambda t: t[1], reverse=True)[:3]
+
+topItemsDictionary = { pair: weight for pair, weight in top3_pairs }
+
+print("Top-3 candidate pairs as a dictionary:")
+print(topItemsDictionary)
+
 # 4. DRAW
 pos = nx.circular_layout(G)
 plt.figure(figsize=(6,6))
