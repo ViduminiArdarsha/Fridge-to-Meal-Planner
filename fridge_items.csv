@@ -1,0 +1,18 @@
+item,category,flavour_tags,days_left,expiry_limit
+Chicken,Protein,umami;savory,2,5
+Mackerel,Protein,fishy;umami;oily,1,3
+Gotu Kola,Vegetable,herbal;bitter;earthy,2,3
+Beans,Vegetable,crisp;green;sweet,5,7
+Curd,Dairy,tangy;creamy,10,14
+Yoghurt,Dairy,tangy;creamy;sour,12,14
+Fresh Milk,Dairy,creamy;neutral;sweet,10,14
+Rice (Cooked),Starch,neutral;starchy,2,4
+Carrot,Vegetable,sweet;earthy;crunchy,3,6
+Beetroot,Vegetable,earthy;sweet;rich,3,6
+Cucumber,Vegetable,crisp;watery;fresh,4,5
+Onions,Vegetable,pungent;sweet;savory,2,3
+Scraped Coconut,Fruit,sweet;nutty;creamy,1,3
+Chillies,Spice,hot;fruity;pungent,2,5
+
+
+
