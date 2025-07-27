@@ -3,6 +3,9 @@ import networkx as nx # type: ignore
 import matplotlib.pyplot as plt
 from itertools import combinations
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+from openai import OpenAI
 
 # 1. CONFIG
 CSV_PATH = "fridge_items.csv"
@@ -82,7 +85,62 @@ topItemsDictionary = { pair: weight for pair, weight in top3_pairs }
 print("Top-3 candidate pairs as a dictionary:")
 print(topItemsDictionary)
 
-# 4. DRAW
+# 4. CONNECT THE LLM
+
+load_dotenv() # Load the env file
+api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=api_key)
+
+prompt = f"""
+Role: You are a Sri Lankan chef or a homecook. 
+
+Instructions: 
+1. Consider the given ingredients: {topItemsDictionary}, 
+2. Based on those suggest 1 - 3 simple Sri Lankan or Asian style meal recipe ideas.
+3. The meal can be a main dish, side dish, desserts or drink
+4. For the meal consider the ingredient pairs in the dictionary and also mention any other indredients required to cook the meal.
+   Example : *"Gotukola Sambola"*
+             Indredients : Gotukola, Onions, Scraped Coconut, Salt, Lime extract
+
+Steps: 
+1. Identify what are the ingredients you have. 
+2. You can mix some of these items or use them individually.
+3. Suppose you have usual spices and basic things with you to make the meal tasty.
+4. Keep the recipes short and easy for home cooking.
+5. Each recipe should use following structure.
+    - Just name Name of the food.
+    - 1 to 2 line small description.
+    - Simple instructions.
+
+    example:
+
+    *Spicy Fish & Cabbage Curry*
+    A aromatic fish curry with cabbage, infused with traditional Sri Lankan spices.
+
+    Instructions:
+    1. Cut fish into chunks and marinate with salt, turmeric, and lime juice.
+    2. Shred cabbage and set aside.
+    3. In a pot, sauté onions, garlic, and ginger in oil until fragrant.
+    4. Add curry powder, chili powder, and the fish pieces.
+    5. Cook for a few minutes, then add coconut milk and shredded cabbage.
+    6. Simmer until cooked through. Serve with roti or rice.
+
+
+End Goal:
+You should deliver simple Sri Lankan style meal recipe ideas by utilizing the ingredients as a chef.
+
+Narrow:
+1. Do not provide complex instructions.
+"""
+
+response = client.responses.create(
+    model="gpt-4o",
+    input=prompt,
+)
+
+print(response.output_text)
+
+# 5. DRAW
 pos = nx.circular_layout(G)
 plt.figure(figsize=(6,6))
 nx.draw_networkx_nodes(G, pos, node_size=1800, node_color="#ffd58c", edgecolors="black")
