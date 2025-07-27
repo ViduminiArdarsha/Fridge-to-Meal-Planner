@@ -1,5 +1,5 @@
 item,category,flavour_tags,days_left,expiry_limit
-Chicken,Protein,umami;savory,10,90
+Chicken,Protein,umami;savory,15,60
 Mackerel,Protein,fishy;umami;oily,10,60
 Gotu Kola,Vegetable,herbal;bitter;earthy,2,3
 Beans,Vegetable,crisp;green;sweet,5,7
